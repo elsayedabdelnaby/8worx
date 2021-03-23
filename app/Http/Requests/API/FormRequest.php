@@ -10,7 +10,7 @@ use Illuminate\Foundation\Http\FormRequest as LaravelFormRequest;
 
 abstract class FormRequest extends LaravelFormRequest
 {
-     /**
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array

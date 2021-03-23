@@ -10,15 +10,18 @@ class Lead extends Model
 {
     use HasFactory, SoftDeletes;
 
-    public function createdBy(){
+    public function createdBy()
+    {
         return $this->belongsTo('App\User');
     }
 
-    public function deletedBy(){
+    public function deletedBy()
+    {
         return $this->belongsTo('App\User');
     }
 
-    public function updatedBy(){
+    public function updatedBy()
+    {
         return $this->belongsTo('App\User');
     }
 }

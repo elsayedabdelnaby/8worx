@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\API\BaseController;
+use App\Http\Resources\LeadResource;
+use App\Models\Lead;
 use Illuminate\Http\Request;
 
 class LeadController extends BaseController
@@ -14,7 +16,9 @@ class LeadController extends BaseController
      */
     public function index()
     {
-        //
+        $leads = Lead::all();
+
+        return $this->sendResponse(LeadResource::collection($leads), 'Leads retrieved successfully.');
     }
 
     /**

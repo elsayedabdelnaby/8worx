@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\API\BaseController;
 use Illuminate\Http\Request;
 
-class LeadController extends Controller
+class LeadController extends BaseController
 {
     /**
      * Display a listing of the resource.

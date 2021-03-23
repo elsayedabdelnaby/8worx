@@ -9,4 +9,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Lead extends Model
 {
     use HasFactory, SoftDeletes;
+
+    public function createdBy(){
+        return $this->belongsTo('App\User');
+    }
+
+    public function deletedBy(){
+        return $this->belongsTo('App\User');
+    }
+
+    public function updatedBy(){
+        return $this->belongsTo('App\User');
+    }
 }

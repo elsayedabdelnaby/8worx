@@ -5,10 +5,18 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\API\BaseController;
 use App\Http\Resources\LeadResource;
 use App\Models\Lead;
+use App\Repositories\LeadRepositoryInterface;
 use Illuminate\Http\Request;
 
 class LeadController extends BaseController
 {
+
+    private $leadRepository;
+
+    public function __construct(LeadRepositoryInterface $leadRepository)
+    {
+        $this->leadRepository = $leadRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +24,7 @@ class LeadController extends BaseController
      */
     public function index()
     {
-        $leads = Lead::all();
+        $leads = $this->leadRepository->all();
 
         return $this->sendResponse(LeadResource::collection($leads), 'Leads retrieved successfully.');
     }

@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use Illuminate\Support\Collection;
+use App\Models\Lead;
 //use Your Model
 
 /**

@@ -7,6 +7,8 @@ use App\Http\Resources\LeadResource;
 use App\Models\Lead;
 use App\Repositories\LeadRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Validator;
 
 class LeadController extends BaseController
 {
@@ -25,7 +27,6 @@ class LeadController extends BaseController
     public function index()
     {
         $leads = $this->leadRepository->all();
-
         return $this->sendResponse(LeadResource::collection($leads), 'Leads retrieved successfully.');
     }
 
@@ -47,7 +48,26 @@ class LeadController extends BaseController
      */
     public function store(Request $request)
     {
-        //
+        $input['first_name'] = $request->first_name;
+        $input['last_name'] = $request->last_name;
+        $input['full_name'] = $request->first_name . ' ' . $request->last_name;
+        $input['description'] = $request->description;
+        $input['address'] = $request->address;
+        $input['gender'] = strtolower($request->gender);
+        $input['created_by'] = Auth::id();
+
+        $validator = Validator::make($input, [
+            'first_name' => 'required',
+            'last_name' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors());
+        }
+
+        $lead = Lead::create($input);
+
+        return $this->sendResponse(new LeadResource($lead), 'Lead created successfully.');
     }
 
     /**

@@ -21,7 +21,7 @@ class LeadResource extends JsonResource
             'full_name' => $this->full_name,
             'description' => $this->description,
             'address' => $this->address,
-            'gender' => $this->gender,
+            'gender' => ucfirst($this->gender),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'deleted_at' => $this->deleted_at,

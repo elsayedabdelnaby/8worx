@@ -136,6 +136,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'email' => [
+            'exists' => 'This Email not Registered Please Register'
+        ],
     ],
 
     /*

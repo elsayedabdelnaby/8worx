@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\API\BaseController;
+use App\Http\Requests\API\LoginRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 
 class LoginController extends BaseController
 {
@@ -13,7 +13,7 @@ class LoginController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();

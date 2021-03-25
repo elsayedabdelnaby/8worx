@@ -70,7 +70,13 @@ class LeadController extends BaseController
      */
     public function show($id)
     {
-        //
+        $lead = Lead::find($id);
+
+        if (is_null($lead)) {
+            return $this->sendError('Lead not found.');
+        }
+
+        return $this->sendResponse(new LeadResource($lead), 'Lead retrieved successfully.');
     }
 
     /**
@@ -81,7 +87,7 @@ class LeadController extends BaseController
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**

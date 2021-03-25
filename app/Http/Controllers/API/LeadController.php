@@ -8,8 +8,6 @@ use App\Http\Resources\LeadResource;
 use App\Models\Lead;
 use App\Repositories\LeadRepositoryInterface;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Validator;
 
 class LeadController extends BaseController
 {
@@ -79,16 +77,6 @@ class LeadController extends BaseController
         return $this->sendResponse(new LeadResource($lead), 'Lead retrieved successfully.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-
-    }
 
     /**
      * Update the specified resource in storage.
@@ -97,9 +85,24 @@ class LeadController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(LeadRequest $request, $id)
     {
-        //
+        $lead = Lead::find($id);
+
+        if (is_null($lead)) {
+            return $this->sendError('Lead not found.');
+        }
+
+        $lead->first_name = $request->first_name;
+        $lead->last_name = $request->last_name;
+        $lead->full_name = $request->first_name . ' ' . $request->last_name;
+        $lead->description = $request->description;
+        $lead->address = $request->address;
+        $lead->gender = strtolower($request->gender);
+        $lead->updated_by = $request->user()->id;
+        $lead->save();
+
+        return $this->sendResponse(new LeadResource($lead, 'update'), 'Lead updated successfully.');
     }
 
     /**
@@ -108,8 +111,18 @@ class LeadController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $lead = Lead::find($id);
+
+        if (is_null($lead)) {
+            return $this->sendError('Lead not found.');
+        }
+
+        $lead->deleted_by = $request->user()->id;
+        $lead->save();
+        $lead->delete();
+
+        return $this->sendResponse(new LeadResource($lead, 'delete'), 'Lead deleted successfully.');
     }
 }

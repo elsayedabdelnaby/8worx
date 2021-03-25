@@ -70,8 +70,6 @@ class LeadResource extends JsonResource
                 $lead['created_by'] = $this->created_by;
                 $lead['updated_at'] = $updated_at;
                 $lead['updated_by'] = $this->updated_by;
-                $lead['deleted_at'] = $deleted_at;
-                $lead['deleted_by'] = $this->deleted_by;
                 break;
         }
         return $lead;

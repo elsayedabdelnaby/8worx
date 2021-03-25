@@ -18,14 +18,14 @@ class CreateLeadsTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('full_name');
-            $table->text('description');
-            $table->string('address');
+            $table->text('description')->nullable();
+            $table->string('address')->nullable();
             $table->enum('gender', ['male', 'female']);
             $table->timestamps();
             $table->softDeletes();
             $table->unsignedBigInteger('created_by');
-            $table->unsignedBigInteger('updated_by');
-            $table->unsignedBigInteger('deleted_by');
+            $table->unsignedBigInteger('updated_by')->nullable();
+            $table->unsignedBigInteger('deleted_by')->nullable();
 
             $table->foreign('created_by')
                 ->references('id')

@@ -54,7 +54,7 @@ class LeadController extends BaseController
         $input['description'] = $request->description;
         $input['address'] = $request->address;
         $input['gender'] = strtolower($request->gender);
-        $input['created_by'] = Auth::id();
+        $input['created_by'] = $request->user()->id;
 
         $validator = Validator::make($input, [
             'first_name' => 'required',
@@ -65,7 +65,16 @@ class LeadController extends BaseController
             return $this->sendError('Validation Error.', $validator->errors());
         }
 
-        $lead = Lead::create($input);
+        $lead = new Lead();
+        $lead->first_name = $input['first_name'];
+        $lead->last_name = $input['last_name'];
+        $lead->full_name = $input['full_name'];
+        $lead->description = $input['description'];
+        $lead->address = $input['address'];
+        $lead->gender = $input['gender'];
+        $lead->created_by = $input['created_by'];
+        $lead->updated_by = $input['created_by'];
+        $lead->save();
 
         return $this->sendResponse(new LeadResource($lead), 'Lead created successfully.');
     }

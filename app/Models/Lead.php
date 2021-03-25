@@ -10,18 +10,23 @@ class Lead extends Model
 {
     use HasFactory, SoftDeletes;
 
-    public function createdBy()
+    public function getCreatedAtAttribute($value)
     {
-        return $this->belongsTo('App\User');
+        return $value;
     }
 
-    public function deletedBy()
+    public function getUpdatedAtAttribute($value)
     {
-        return $this->belongsTo('App\User');
+        return $value;
     }
 
-    public function updatedBy()
+    public function getDeletedAtAttribute($value)
     {
-        return $this->belongsTo('App\User');
+        return $value;
+    }
+
+    public function getGenderAttribute($value)
+    {
+        return ucfirst($value);
     }
 }

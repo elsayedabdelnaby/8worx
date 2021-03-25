@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\API\BaseController;
+use App\Http\Requests\API\LeadRequest;
 use App\Http\Resources\LeadResource;
 use App\Models\Lead;
 use App\Repositories\LeadRepositoryInterface;
@@ -46,37 +47,19 @@ class LeadController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(LeadRequest $request)
     {
-        $input['first_name'] = $request->first_name;
-        $input['last_name'] = $request->last_name;
-        $input['full_name'] = $request->first_name . ' ' . $request->last_name;
-        $input['description'] = $request->description;
-        $input['address'] = $request->address;
-        $input['gender'] = strtolower($request->gender);
-        $input['created_by'] = $request->user()->id;
-
-        $validator = Validator::make($input, [
-            'first_name' => 'required',
-            'last_name' => 'required'
-        ]);
-
-        if ($validator->fails()) {
-            return $this->sendError('Validation Error.', $validator->errors());
-        }
-
         $lead = new Lead();
-        $lead->first_name = $input['first_name'];
-        $lead->last_name = $input['last_name'];
-        $lead->full_name = $input['full_name'];
-        $lead->description = $input['description'];
-        $lead->address = $input['address'];
-        $lead->gender = $input['gender'];
-        $lead->created_by = $input['created_by'];
-        $lead->updated_by = $input['created_by'];
+        $lead->first_name = $request->first_name;
+        $lead->last_name = $request->last_name;
+        $lead->full_name = $request->first_name . ' ' . $request->last_name;
+        $lead->description = $request->description;
+        $lead->address = $request->address;
+        $lead->gender = strtolower($request->gender);
+        $lead->created_by = $request->user()->id;
         $lead->save();
 
-        return $this->sendResponse(new LeadResource($lead), 'Lead created successfully.');
+        return $this->sendResponse(new LeadResource($lead, 'create'), 'Lead created successfully.');
     }
 
     /**

@@ -1,63 +1,67 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# REST API with Passport Auth
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Create an API using Passport Authentication to Register, Login and execute CRUD functionality on Leads Module:
 
-## About 8worx
+## Installation
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Clone Project From github: `git clone https://github.com/elsayedabdelnaby/8worx.git`
+- Go to Project Folder and Run This Command: `composer install`
+- Create Your Database by Run This Command: `php artisan migrate`
+- Create Passport Client by Run This Command: `php artisan passport:install`
+- Now Project is Ready to Use by Run `php artisan serve`
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## API Links
+### Register
+- Can Register by send POST request to `http://localhost:8000/api/register` <br>
+By This Json
+`{
+    "name" : "admin",
+    "email" : "admin@gmail.com",
+    "password": "admin",
+    "confirm_password" : "admin"
+}`
+<br>
+<a href="https://ibb.co/PwS1CLK"><img src="https://i.ibb.co/f4cr0gf/API-Register-1.png" alt="API-Register-1" border="0"></a>
+<a href="https://ibb.co/82Bkjb3"><img src="https://i.ibb.co/Dkbd7YX/Api-register-2.png" alt="Api-register-2" border="0"></a>
 
-## Learning Laravel
+### Login
+- Can Login by send POST request to `http://localhost:8000/api/login` <br>
+By This Json and System will return token which i use to execute CURD functions on Leads Module
+`{
+	"email" : "admin@gmail.com",
+	"password": "admin"
+}`
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### CRUD
+- to send any request to execute CRUD functions on Lead module must set token in header as authAuthorization parameter, add Bearer + token
+<a href="https://ibb.co/V2jjtpQ"><img src="https://i.ibb.co/Ch11zsM/create-lead.png" alt="create-lead" border="0"></a> 
+#### Create Lead
+- Can Create Lead by Send POST request to `http://localhost:8000/api/leads`
+- Send Data in Json Format
+<a href="https://ibb.co/NLqsZfv"><img src="https://i.ibb.co/P5yNwJL/create-lead-2.png" alt="create-lead-2" border="0"></a>
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Read Leads
+- to read all leads or specific lead send get request to <br>
+<ol>
+<li>all leads `http://localhost:8000/api/leads` <br>
+<a href="https://ibb.co/BK63thn"><img src="https://i.ibb.co/mFyTGnN/get-all-leads.png" alt="get-all-leads" border="0"></a>
+<br>
+<li>specific lead `http://localhost:8000/api/leads/id` <br>
+<a href="https://ibb.co/Y01Fcgc"><img src="https://i.ibb.co/6XT7HQH/get-specific-lead.png" alt="get-specific-lead" border="0"></li> </a>
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+</li> <br>
+</ol>
+and data will return on json array
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
+#### Update Lead
+- Can Update Existing Lead by Send PUT request to `http://localhost:8000/api/leads/id`
+- Send Data in Json Format
+<a href="https://ibb.co/NLqsZfv"><img src="https://i.ibb.co/P5yNwJL/create-lead-2.png" alt="create-lead-2" border="0"></a>
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-=======
+#### Delete Lead
+- Can Delete a specific lead by send DELETE request to `http://localhost:8000/api/leads/id` replace id by lead id which you want to delete it
+<br>
+<a href="https://ibb.co/PgxDjVS"><img src="https://i.ibb.co/89MYsQh/delete-id.png" alt="delete-id" border="0"></a>
